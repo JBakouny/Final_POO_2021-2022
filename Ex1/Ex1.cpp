@@ -42,10 +42,50 @@ ostream& operator<< (ostream& out, const File& f) {
 	return out;
 }
 
+class Project {
+public:
+	Project(const string& name, int majorVersion, int minorVersion)
+		: name(name), majorVersion(majorVersion), minorVersion(minorVersion)
+	{}
+
+	void add(const File& f) {
+		files.push_back(f);
+	}
+
+	string toString() const {
+		stringstream ss;
+		ss << "cmake_minimum_required(VERSION " << majorVersion << "." << minorVersion << ")" << endl;
+		ss << "project(" << name << ")" << endl;
+		ss << "add_executable(" << name;
+		for (auto f : files) {
+			ss << " " << f;
+		}
+		ss << ")" << endl;
+		return ss.str();
+	}
+
+private:
+	string name;
+	int majorVersion;
+	int minorVersion;
+	vector<File> files;
+};
+
+ostream& operator<< (ostream& out, const Project& p) {
+	out << p.toString();
+	return out;
+}
+
 int main()
 {
-	const File f("main", "cpp", 17.3);
-	cout << f << endl;
-	cout << f.size() << " KB" << endl;
+	File ex1cpp("Ex1", "cpp", 17.3);
+	File ex1h("Ex1", "h", 5);
+
+	Project p("MyProj", 3, 8);
+	p.add(ex1cpp);
+	p.add(ex1h);
+
+	cout << p << endl;
+
 	return 0;
 }
