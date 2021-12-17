@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex3\Ex3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex3\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{EAA4A132-8928-324A-AA01-D16E54B81B4C}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

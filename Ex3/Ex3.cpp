@@ -100,7 +100,7 @@ public:
 		stringstream ss;
 		ss << "cmake_minimum_required(VERSION " << majorVersion << "." << minorVersion << ")" << endl;
 		ss << "project(" << contents << ")" << endl;
-		ss << "add_executable(" << contents<< contents.showContents() << ")" << endl;
+		ss << "add_executable(" << contents << contents.showContents() << ")" << endl;
 		return ss.str();
 	}
 

@@ -1,8 +1,4 @@
-﻿// Ex1.cpp : Defines the entry point for the application.
-//
-
-//#include "Ex1.h"
-#include <iostream>
+﻿#include <iostream>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -125,7 +121,7 @@ ostream& operator<< (ostream& out, const Directory& p) {
 
 void display(const Directory& d) {
 	cout << "Directory: " << d << endl;
-	cout << "File list:  " << d.showContents() << endl;
+	cout << "File list: " << d.showContents() << endl;
 	cout << "Size:  " << d.size() << " KB" << endl << endl;
 }
 
