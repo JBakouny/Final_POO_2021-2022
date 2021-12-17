@@ -4,7 +4,20 @@
 #include <vector>
 using namespace std;
 
-class File {
+class Item {
+
+public:
+	virtual string toString() const = 0;
+	virtual double size() const = 0;
+
+};
+
+ostream& operator<< (ostream& out, const Item& item) {
+	out << item.toString();
+	return out;
+}
+
+class File : public Item {
 
 public:
 	File(const string& name,
@@ -33,12 +46,7 @@ private:
 	double fileSize;
 };
 
-ostream& operator<< (ostream& out, const File& f) {
-	out << f.toString();
-	return out;
-}
-
-class Directory {
+class Directory : public Item {
 public:
 	Directory(const string& name)
 		: name(name)
@@ -79,13 +87,6 @@ private:
 	vector<File> files;
 };
 
-
-ostream& operator<< (ostream& out, const Directory& d) {
-	out << d.toString();
-	return out;
-}
-
-
 class Project {
 public:
 	Project(const string& name, int majorVersion, int minorVersion)
@@ -100,7 +101,7 @@ public:
 		stringstream ss;
 		ss << "cmake_minimum_required(VERSION " << majorVersion << "." << minorVersion << ")" << endl;
 		ss << "project(" << contents << ")" << endl;
-		ss << "add_executable(" << contents << contents.showContents() << ")" << endl;
+		ss << "add_executable(" << contents << " " << contents.showContents() << ")" << endl;
 		return ss.str();
 	}
 
@@ -115,14 +116,24 @@ ostream& operator<< (ostream& out, const Project& p) {
 	return out;
 }
 
+void display(const Directory& d) {
+	cout << "Directory: " << d << endl;
+	cout << "File list:  " << d.showContents() << endl;
+	cout << "Size:  " << d.size() << " KB" << endl << endl;
+}
+
 int main()
 {
-	File ex1cpp("Ex1", "cpp", 17.3);
-	File ex1h("Ex1", "h", 5);
+	const File ex1cpp("Ex1", "cpp", 15);
+	const File maincpp("main", "cpp", 7);
+	const File ex1h("Ex1", "h", 5);
 
-	Project p("MyProj", 3, 8);
-	p.add(ex1cpp);
-	p.add(ex1h);
-	cout << p << endl;
+	Directory d("MyDir");
+	display(d);
+	d.add(maincpp);
+	d.add(ex1cpp);
+	d.add(ex1h);
+	display(d);
+	cout << "File list with comma: " << d.showContents(",") << endl;
 	return 0;
 }
