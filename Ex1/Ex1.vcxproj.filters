@@ -6,17 +6,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex1\Ex1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
     <CustomBuild Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex1\CMakeLists.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{CD86B7A9-03DF-3000-B859-8B9A5191A3E2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{EAA4A132-8928-324A-AA01-D16E54B81B4C}</UniqueIdentifier>
     </Filter>
