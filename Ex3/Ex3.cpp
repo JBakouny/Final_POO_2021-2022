@@ -52,8 +52,8 @@ public:
 		: name(name)
 	{}
 
-	void add(const File& f) {
-		files.push_back(f);
+	void add(const Item& item) {
+		items.push_back(&item);
 	}
 
 	string toString() const {
@@ -63,28 +63,28 @@ public:
 	}
 
 	string showContents(string sep = "") const {
-		if (files.size() == 0) {
+		if (items.size() == 0) {
 			return "";
 		}
 		stringstream ss;
-		ss << files[0];
-		for (size_t i = 1; i < files.size(); ++i) {
-			ss << sep << " " << files[i];
+		ss << *items[0];
+		for (size_t i = 1; i < items.size(); ++i) {
+			ss << sep << " " << *items[i];
 		}
 		return ss.str();
 	}
 
 	double size() const {
 		double res = 0;
-		for (auto f : files) {
-			res += f.size();
+		for (auto i : items) {
+			res += i->size();
 		}
 		return res;
 	}
 
 private:
 	string name;
-	vector<File> files;
+	vector<const Item *> items;
 };
 
 class Project {
@@ -118,22 +118,32 @@ ostream& operator<< (ostream& out, const Project& p) {
 
 void display(const Directory& d) {
 	cout << "Directory: " << d << endl;
-	cout << "File list:  " << d.showContents() << endl;
+	cout << "Contents:  " << d.showContents() << endl;
+	cout << "Contents with comma: " << d.showContents(",") << endl;
 	cout << "Size:  " << d.size() << " KB" << endl << endl;
 }
 
 int main()
 {
-	const File ex1cpp("Ex1", "cpp", 15);
-	const File maincpp("main", "cpp", 7);
-	const File ex1h("Ex1", "h", 5);
+	const File ex3cpp("Ex3", "cpp", 12);
+	const File ex3h("Ex3", "h", 5);
+	Directory ex3("Ex3");
+	ex3.add(ex3cpp);
+	ex3.add(ex3h);
+	display(ex3);
 
-	Directory d("MyDir");
-	display(d);
+	const File ex4cpp("Ex4", "cpp", 15);
+	const File ex4h("Ex4", "h", 5);
+	Directory ex4("Ex4");
+	ex4.add(ex4cpp);
+	ex4.add(ex4h);
+	display(ex4);
+
+	Directory d("Root");
+	const File maincpp("main", "cpp", 7);
+	d.add(ex3);
+	d.add(ex4);
 	d.add(maincpp);
-	d.add(ex1cpp);
-	d.add(ex1h);
 	display(d);
-	cout << "File list with comma: " << d.showContents(",") << endl;
 	return 0;
 }
