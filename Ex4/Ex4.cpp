@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <utility>
 #include <vector>
 using namespace std;
 
@@ -9,6 +10,7 @@ class Item {
 public:
 	virtual string toString() const = 0;
 	virtual double size() const = 0;
+	virtual Item* copy() const = 0;
 
 };
 
@@ -34,6 +36,10 @@ public:
 		return ss.str();
 	}
 
+	File* copy() const {
+		return new File(*this);
+	}
+
 
 	double size() const {
 		return fileSize;
@@ -52,6 +58,14 @@ public:
 		: name(name)
 	{}
 
+	Directory(const Directory& d)
+		:name(d.name), items(d.items.size())
+	{
+		for (size_t i = 0; i < items.size(); ++i) {
+			items[i] = d.items[i]->copy();
+		}
+	}
+
 	void add(const Item& item) {
 		items.push_back(&item);
 	}
@@ -60,6 +74,10 @@ public:
 		stringstream ss;
 		ss << name;
 		return ss.str();
+	}
+
+	Directory* copy() const {
+		return new Directory(*this);
 	}
 
 	string showContents(string sep = "") const {
@@ -82,10 +100,28 @@ public:
 		return res;
 	}
 
+	Directory& operator= (Directory d) {
+		swap(*this, d);
+		return *this;
+	}
+
+	~Directory() {
+		for (auto i : items) {
+			delete i;
+		}
+	}
+
 private:
 	string name;
 	vector<const Item *> items;
+	friend void swap(Directory& d1, Directory& d2);
 };
+
+void swap(Directory& d1, Directory& d2) {
+	using std::swap;
+	swap(d1.name, d2.name);
+	swap(d1.items, d2.items);
+}
 
 class Project {
 public:
@@ -123,20 +159,22 @@ void display(const Directory& d) {
 	cout << "Size:  " << d.size() << " KB" << endl << endl;
 }
 
+Directory createDirectory(const string& exerciceName) {
+	const File excpp(exerciceName, "cpp", 12);
+	const File exh(exerciceName, "h", 5);
+	Directory ex(exerciceName);
+	ex.add(excpp);
+	ex.add(exh);
+	return ex;
+}
+
 int main()
 {
-	const File ex3cpp("Ex3", "cpp", 12);
-	const File ex3h("Ex3", "h", 5);
-	Directory ex3("Ex3");
-	ex3.add(ex3cpp);
-	ex3.add(ex3h);
+	Directory ex3 = createDirectory("Ex3");
 	display(ex3);
 
-	const File ex4cpp("Ex4", "cpp", 15);
-	const File ex4h("Ex4", "h", 5);
 	Directory ex4("Ex4");
-	ex4.add(ex4cpp);
-	ex4.add(ex4h);
+	ex4 = createDirectory("Ex4");
 	display(ex4);
 
 	Directory d("Root");

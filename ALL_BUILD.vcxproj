@@ -182,6 +182,10 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
       <Project>{8203BC57-0FB1-3E02-B4A3-96E386505E1C}</Project>
       <Name>Ex3</Name>
     </ProjectReference>
+    <ProjectReference Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex4\Ex4.vcxproj">
+      <Project>{7870292A-B13C-3830-A453-15F112E0B4BA}</Project>
+      <Name>Ex4</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
