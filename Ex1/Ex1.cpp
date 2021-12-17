@@ -84,8 +84,6 @@ int main()
 	Project p("MyProj", 3, 8);
 	p.add(ex1cpp);
 	p.add(ex1h);
-
 	cout << p << endl;
-
 	return 0;
 }
