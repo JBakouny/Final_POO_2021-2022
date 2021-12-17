@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <vector>
 using namespace std;
 
 class File {
@@ -12,24 +13,28 @@ class File {
 public:
 	File(const string & name, 
 		const string & extension, 
-		double size)
-		: name(name), extension(extension), size(size)
+		double fileSize)
+		: name(name), extension(extension), fileSize(fileSize)
 	{
 
 	}
 
 	string toString() const {
 		stringstream ss;
-		ss << "File: " << name << "." << extension << " (" << size << " KB)";
+		ss << name << "." << extension;
 		return ss.str();
 	}
-	ostream& toOstream(ostream& out) const {
-		return out
+
+
+	double size() const {
+		return fileSize;
 	}
+
+
 private:
 	string name;
 	string extension;
-	double size;
+	double fileSize;
 };
 
 ostream& operator<< (ostream& out, const File& f) {
@@ -40,6 +45,7 @@ ostream& operator<< (ostream& out, const File& f) {
 int main()
 {
 	const File f("main", "cpp", 17.3);
-	cout << f.toString() << endl;
+	cout << f << endl;
+	cout << f.size() << " KB" << endl;
 	return 0;
 }
