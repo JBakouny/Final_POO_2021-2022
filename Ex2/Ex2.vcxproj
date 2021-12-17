@@ -305,7 +305,7 @@ if %errorlevel% neq 0 goto :VCEnd</Command>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex2\main.cpp" />
+    <ClCompile Include="C:\Users\712763\source\repos\Final_POO_2021-2022\Ex2\Ex2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="C:\Users\712763\source\repos\Final_POO_2021-2022\ZERO_CHECK.vcxproj">
