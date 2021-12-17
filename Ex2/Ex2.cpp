@@ -42,35 +42,6 @@ ostream& operator<< (ostream& out, const File& f) {
 	return out;
 }
 
-class Project {
-public:
-	Project(const string& name, int majorVersion, int minorVersion)
-		: name(name), majorVersion(majorVersion), minorVersion(minorVersion)
-	{}
-
-	void add(const File& f) {
-		files.push_back(f);
-	}
-
-	string toString() const {
-		stringstream ss;
-		ss << "cmake_minimum_required(VERSION " << majorVersion << "." << minorVersion << ")" << endl;
-		ss << "project(" << name << ")" << endl;
-		ss << "add_executable(" << name;
-		for (auto f : files) {
-			ss << " " << f;
-		}
-		ss << ")" << endl;
-		return ss.str();
-	}
-
-private:
-	string name;
-	int majorVersion;
-	int minorVersion;
-	vector<File> files;
-};
-
 class Directory {
 public:
 	Directory(const string& name)
@@ -113,29 +84,49 @@ private:
 };
 
 
-ostream& operator<< (ostream& out, const Directory& p) {
+ostream& operator<< (ostream& out, const Directory& d) {
+	out << d.toString();
+	return out;
+}
+
+
+class Project {
+public:
+	Project(const string& name, int majorVersion, int minorVersion)
+		: contents(name), majorVersion(majorVersion), minorVersion(minorVersion)
+	{}
+
+	void add(const File& f) {
+		contents.add(f);
+	}
+
+	string toString() const {
+		stringstream ss;
+		ss << "cmake_minimum_required(VERSION " << majorVersion << "." << minorVersion << ")" << endl;
+		ss << "project(" << contents << ")" << endl;
+		ss << "add_executable(" << contents<< contents.showContents() << ")" << endl;
+		return ss.str();
+	}
+
+private:
+	Directory contents;
+	int majorVersion;
+	int minorVersion;
+};
+
+ostream& operator<< (ostream& out, const Project& p) {
 	out << p.toString();
 	return out;
 }
 
-void display(const Directory& d) {
-	cout << "Directory: " << d << endl;
-	cout << "File list:  " << d.showContents() << endl;
-	cout << "Size:  " << d.size() << " KB" << endl << endl;
-}
-
 int main()
 {
-	const File ex1cpp("Ex1", "cpp", 15);
-	const File maincpp("main", "cpp", 7);
-	const File ex1h("Ex1", "h", 5);
+	File ex1cpp("Ex1", "cpp", 17.3);
+	File ex1h("Ex1", "h", 5);
 
-	Directory d("MyDir");
-	display(d);
-	d.add(maincpp);
-	d.add(ex1cpp);
-	d.add(ex1h);
-	display(d);
-	cout << "File list with comma: " << d.showContents(",") << endl;
+	Project p("MyProj", 3, 8);
+	p.add(ex1cpp);
+	p.add(ex1h);
+	cout << p << endl;
 	return 0;
 }
