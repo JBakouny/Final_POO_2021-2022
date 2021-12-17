@@ -1,0 +1,4 @@
+C:/Users/712763/source/repos/Final_POO_2021-2022/CMakeFiles/ALL_BUILD.dir
+C:/Users/712763/source/repos/Final_POO_2021-2022/CMakeFiles/ZERO_CHECK.dir
+C:/Users/712763/source/repos/Final_POO_2021-2022/Ex1/CMakeFiles/Ex1.dir
+C:/Users/712763/source/repos/Final_POO_2021-2022/Ex2/CMakeFiles/Ex2.dir
