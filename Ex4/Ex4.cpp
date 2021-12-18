@@ -67,7 +67,7 @@ public:
 	}
 
 	void add(const Item& item) {
-		items.push_back(&item);
+		items.push_back(item.copy());
 	}
 
 	string toString() const {
