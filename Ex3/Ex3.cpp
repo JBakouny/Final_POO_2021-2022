@@ -9,6 +9,9 @@ class Item {
 public:
 	virtual string toString() const = 0;
 	virtual double size() const = 0;
+	
+	virtual ~Item() {
+	}
 
 };
 
